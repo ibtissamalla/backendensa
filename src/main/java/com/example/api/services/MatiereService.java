@@ -74,7 +74,7 @@ public class MatiereService {
 //    @Autowired
 //    private MatiereRepository matiereRepository;
 
-//    @Autowired
+    //    @Autowired
 //    private NoteRepository noteRepository;
 //
 //    public List<Etudiant> getEtudiantsByMatiereId(int matiereId) {
@@ -85,7 +85,7 @@ public class MatiereService {
 //        // Récupérer la liste des notes associées à cette matière
 //        return noteRepository.findEtudiantsByMatiere(matiere);
 //    }
-public List<Matiere> getMatieresByModuleId(int moduleId) {
-    return matiereRepository.findByModuleId(moduleId);
-}
+    public List<Matiere> getMatieresByModuleId(int moduleId) {
+        return matiereRepository.findByModuleId(moduleId);
+    }
 }

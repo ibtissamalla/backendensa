@@ -43,6 +43,8 @@ public class Matiere {
     @OneToMany(mappedBy = "matiere", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Cours> cours;
+    @OneToMany(mappedBy = "matiere", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Note> notes;
 
     // Constructeur par défaut
     public Matiere() {}

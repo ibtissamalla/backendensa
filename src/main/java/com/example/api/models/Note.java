@@ -62,5 +62,5 @@ public class Note {
 
     public void setValeur(double valeur) {
         this.valeur =valeur;
-}
+    }
 }

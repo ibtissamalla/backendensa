@@ -165,6 +165,6 @@ public class AccountController {
 
         // Retourne -1 si l'utilisateur n'est pas trouvé dans les trois catégories
         return -1;
-}
+    }
 
 }

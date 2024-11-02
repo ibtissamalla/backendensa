@@ -70,6 +70,6 @@ public class Cours {
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", matiere=" + (matiere != null ? matiere.getNom() : "null") +
-            '}';
-}
+                '}';
+    }
 }

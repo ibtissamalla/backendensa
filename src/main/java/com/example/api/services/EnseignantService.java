@@ -34,8 +34,15 @@ public class EnseignantService {
     }
 
     public void delete(long id) {
-        enseignantRepository.deleteById(id);
+        Optional<Enseignant> enseignantOptional = enseignantRepository.findById(id);
+        if (enseignantOptional.isPresent()) {
+            enseignantRepository.delete(enseignantOptional.get());
+            System.out.println("Enseignant supprimé : " + id);
+        } else {
+            throw new RuntimeException("Enseignant non trouvé avec l'ID : " + id);
+        }
     }
+
 
     public Enseignant assignMatiere(long enseignantId, int matiereId) {
         Enseignant enseignant = enseignantRepository.findById(enseignantId)

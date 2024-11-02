@@ -31,8 +31,10 @@ public class Enseignant implements Serializable {
     private String specialite;
 
     @OneToMany(mappedBy = "enseignant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JsonIgnore// Ignorer pour éviter la boucle de sérialisation
+    @JsonIgnore
     private List<Matiere> matieres;
+
+
 
     // Getters and Setters
     public int getId() {
