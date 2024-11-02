@@ -116,6 +116,16 @@ public class MatiereController {
         }
         return ResponseEntity.ok(matieres);
     }
+    @DeleteMapping("/matieres/{matiereId}")
+    public ResponseEntity<String> deleteMatiere(@PathVariable int matiereId) {
+        try {
+            matiereService.deleteMatiereById(matiereId);
+            return ResponseEntity.ok("Matière supprimée avec succès.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Matière non trouvée.");
+        }
+    }
+
 //
 //    @GetMapping("/matieres/{matiereId}/etudiants")
 //    public List<Etudiant> getEtudiantsByMatiere(@PathVariable int matiereId) {
