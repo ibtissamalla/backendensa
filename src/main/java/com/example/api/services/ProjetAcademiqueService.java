@@ -21,17 +21,14 @@ public class ProjetAcademiqueService {
     private EnseignantRepository enseignantRepository;
     @Autowired
     private EtudiantRepository etudiantRepository;
+    // Récupérer les projets académiques par ID d'enseignant
     public List<ProjetAcademique> getProjetsByEnseignantId(Long enseignantId) {
-        // Récupérer les projets académiques associés à l'enseignant par ID
         List<ProjetAcademique> projets = projetAcademiqueRepository.findByEnseignantId(enseignantId);
 
-        // Charger les informations complètes des étudiants pour chaque projet
         for (ProjetAcademique projet : projets) {
-            // Vérifiez si le projet a un étudiant associé
             if (projet.getEtudiant() != null) {
-                // Récupérer l'étudiant par ID, en utilisant Optional pour gérer les erreurs
                 Etudiant etudiant = etudiantRepository.findById(projet.getEtudiant().getId())
-                        .orElseThrow(() -> new RuntimeException("Etudiant non trouvé pour le projet ID : " + projet.getId()));
+                        .orElseThrow(() -> new EntityNotFoundException("Etudiant non trouvé pour le projet ID : " + projet.getId()));
                 projet.setEtudiant(etudiant);
             }
         }
@@ -86,6 +83,6 @@ public class ProjetAcademiqueService {
 //
 //        projetAcademique.setEnseignant(enseignant);
 //        return projetAcademiqueRepository.save(projetAcademique);
-//    }
+//    }
 
 }

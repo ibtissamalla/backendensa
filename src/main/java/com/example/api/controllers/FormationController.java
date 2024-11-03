@@ -30,10 +30,16 @@ public class FormationController {
     }
 
     // Endpoint pour modifier une formation
+    // Endpoint pour modifier une formation
     @PutMapping("/{id}")
-    public ResponseEntity<Formation> updateFormation(@PathVariable Long id, @RequestBody Formation formationDetails) {
+    public ResponseEntity<?> updateFormation(@PathVariable Long id, @RequestBody Formation formationDetails) {
         Formation formation = formationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Formation non trouvée avec l'ID : " + id));
+
+        // Vérifie si une formation avec le même nom existe déjà, mais pas celle que nous modifions
+        if (formationRepository.existsByNom(formationDetails.getNom()) && !formation.getNom().equals(formationDetails.getNom())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Formation déjà existante avec le nom : " + formationDetails.getNom());
+        }
 
         formation.setNom(formationDetails.getNom());
         formation.setDescription(formationDetails.getDescription());
@@ -42,6 +48,7 @@ public class FormationController {
         final Formation updatedFormation = formationRepository.save(formation);
         return ResponseEntity.ok(updatedFormation);
     }
+
 
 
     // Endpoint pour récupérer toutes les formations

@@ -69,6 +69,15 @@ public class MatiereService {
             throw new RuntimeException("Cours non trouvé");
         }
     }
+    public void deleteMatiereById(Integer matiereId) {
+        if (matiereRepository.existsById(matiereId)) {
+            matiereRepository.deleteById(matiereId);
+        } else {
+            throw new RuntimeException("Matière non trouvée");
+        }
+    }
+
+
 
 
 //    @Autowired
