@@ -10,5 +10,7 @@ public interface EnseignantRepository extends JpaRepository<Enseignant, Long> {
     Enseignant findByEmail(String email);
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
+
+    long count();
 }
 

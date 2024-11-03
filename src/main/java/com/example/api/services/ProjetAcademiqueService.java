@@ -64,6 +64,18 @@ public class ProjetAcademiqueService {
         return projetAcademiqueRepository.save(projetAcademique);
     }
 
+    public List<ProjetAcademique> getProjetsByEtudiantId(Long etudiantId) {
+        // Vérifier si l'étudiant existe dans la base de données
+        Etudiant etudiant = etudiantRepository.findById(etudiantId)
+                .orElseThrow(() -> new RuntimeException("Etudiant non trouvé pour l'ID : " + etudiantId));
+
+        // Récupérer les projets associés à cet étudiant
+        List<ProjetAcademique> projets = projetAcademiqueRepository.findByEtudiantId(etudiantId);
+
+
+        return projets;
+    }
+
 //    public ProjetAcademique addProjet(ProjetAcademique projetAcademique) {
 //        if (projetAcademique.getEnseignant() == null || projetAcademique.getEnseignant().getId() == null) {
 //            throw new IllegalArgumentException("Enseignant is missing or invalid in the request.");

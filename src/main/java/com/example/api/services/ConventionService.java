@@ -23,7 +23,7 @@ public class ConventionService {
         PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
         // Adding the logo
-        PDImageXObject pdImage = PDImageXObject.createFromFile("D:\\SGSA\\SGSA-backend\\API\\src\\main\\resources\\ENSA-LOGO-4.jpg", document);
+        PDImageXObject pdImage = PDImageXObject.createFromFile("C:\\Users\\Nrint\\Downloads\\API\\backendensa\\src\\main\\resources\\ENSA-LOGO-4.jpg", document);
         contentStream.drawImage(pdImage, 500, 688, 100, 100);
 
         // Header

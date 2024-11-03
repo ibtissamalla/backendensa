@@ -24,7 +24,7 @@ public class AttestationService {
 
         // Création du flux de contenu pour la page
         PDPageContentStream contentStream = new PDPageContentStream(document, page);
-        PDImageXObject pdImage = PDImageXObject.createFromFile("D:\\SGSA\\SGSA-backend\\API\\src\\main\\resources\\ENSA-LOGO-4.jpg", document);
+        PDImageXObject pdImage = PDImageXObject.createFromFile("C:\\Users\\Nrint\\Downloads\\API\\backendensa\\src\\main\\resources\\ENSA-LOGO-4.jpg", document);
         contentStream.drawImage(pdImage, 500, 688, 100, 100);
 
         // En-tête

@@ -1,25 +1,19 @@
 package com.example.api.controllers;
 
-import com.example.api.models.Etudiant;
-import com.example.api.models.Matiere;
-import com.example.api.models.Note;
-import com.example.api.models.Module;
+import com.example.api.models.*;
 
+import com.example.api.models.Module;
 import com.example.api.repositories.EtudiantRepository;
 import com.example.api.repositories.NoteRepository;
 import com.example.api.repositories.ModuleRepository;
 import com.example.api.repositories.MatiereRepository;
-import com.example.api.services.AttestationService;
+import com.example.api.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.api.models.Etudiant;
-import com.example.api.models.ProjetAcademique;
 import com.example.api.repositories.EtudiantRepository;
 import com.example.api.services.AttestationService;
-import com.example.api.services.ConventionService;
-import com.example.api.services.MatiereService;
-import com.example.api.services.ProjetAcademiqueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -72,6 +66,9 @@ public class EtudiantController {
     private ProjetAcademiqueService projetAcademiqueService;
     @Autowired
     private ConventionService conventionService;
+
+    @Autowired
+    private EnseignantService enseignantService;
 
 
 
@@ -179,6 +176,26 @@ public class EtudiantController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error generating the convention: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/{etudiantId}")
+    public ResponseEntity<Etudiant> getEtudiantById(@PathVariable Long etudiantId) {
+
+        Optional<Etudiant> etudiantOptional = etudiantRepository.findById(etudiantId);
+
+        if (etudiantOptional.isPresent()) {
+            return ResponseEntity.ok(etudiantOptional.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+    @GetMapping("/projet/{etudiantId}")
+    public List<ProjetAcademique> getProjetsByEtudiantId(@PathVariable Long etudiantId) {
+        return projetAcademiqueService.getProjetsByEtudiantId(etudiantId);
+    }
+    @GetMapping("/enseignants")
+    public List<Enseignant> getAllEnseignants() {
+        return enseignantService.findAll();
     }
 
 //    @GetMapping("/{etudiantId}/notes")

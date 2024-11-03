@@ -34,16 +34,20 @@ public class Etudiant implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date date_inscription;
 
+    private String statut;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "etudiant_matiere",
             joinColumns = @JoinColumn(name = "etudiant_id"),
             inverseJoinColumns = @JoinColumn(name = "matiere_id"))
+    @JsonIgnore
     private List<Matiere> matieres;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "etudiant_formation",
             joinColumns = @JoinColumn(name = "etudiant_id"),
             inverseJoinColumns = @JoinColumn(name = "formation_id"))
+    @JsonIgnore
     private List<Formation> formations;
 
     // Getters et Setters
@@ -125,6 +129,13 @@ public class Etudiant implements Serializable {
 
     public void setDate_inscription(Date date_inscription) {
         this.date_inscription = date_inscription;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+    public void setStatut(String statut) {
+        this.statut = statut;
     }
 
     public List<Matiere> getMatieres() {
