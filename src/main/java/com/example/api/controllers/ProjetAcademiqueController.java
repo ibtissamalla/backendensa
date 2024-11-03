@@ -15,7 +15,7 @@ public class ProjetAcademiqueController {
     @Autowired
     private ProjetAcademiqueService projetAcademiqueService;
 
-    // Obtenir tous les projets d'un enseignant avec les informations de l'étudiant
+    // Endpoint pour obtenir tous les projets d'un enseignant avec les informations de l'étudiant
     @GetMapping("/enseignants/{enseignantId}")
     public ResponseEntity<List<ProjetAcademique>> getProjetsByEnseignant(@PathVariable long enseignantId) {
         List<ProjetAcademique> projets = projetAcademiqueService.getProjetsByEnseignantId(enseignantId);
@@ -27,5 +27,5 @@ public class ProjetAcademiqueController {
 //    public ResponseEntity<String> deleteProjet(@PathVariable Long id) {
 //        projetAcademiqueService.deleteProjet(id);
 //        return ResponseEntity.ok("Projet supprimé avec succès.");
-//    }
+//    }
 }

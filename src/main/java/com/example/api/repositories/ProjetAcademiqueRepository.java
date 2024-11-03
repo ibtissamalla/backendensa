@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ProjetAcademiqueRepository extends JpaRepository<ProjetAcademique, Long> {
-    List<ProjetAcademique> findByEnseignantId(Long enseignantId); // Changer int en Long
+    List<ProjetAcademique> findByEnseignantId(Long enseignantId); // Changer int en Long
 }

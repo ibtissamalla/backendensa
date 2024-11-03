@@ -26,7 +26,7 @@ public class ProjetAcademique implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "enseignant_id", nullable = false)
-    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","projets"})
     private Enseignant enseignant;
 
 
@@ -145,5 +145,5 @@ public class ProjetAcademique implements Serializable {
     public enum StatutProjet {
         AFFECTE,
         EN_COURS,
-     }
+}
 }
