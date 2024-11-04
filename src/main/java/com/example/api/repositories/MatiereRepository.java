@@ -25,4 +25,5 @@ public interface MatiereRepository extends JpaRepository<Matiere, Integer> {
     // Récupérer toutes les matières d'un module
     List<Matiere> findByModule_Id(int moduleId);
     List<Matiere> findByModuleId(int moduleId);
+    List<Matiere> findByFormationId(Long formationId);
 }

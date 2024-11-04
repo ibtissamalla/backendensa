@@ -3,11 +3,9 @@ package com.example.api.controllers;
 import com.example.api.models.*;
 
 import com.example.api.models.Module;
-import com.example.api.repositories.EtudiantRepository;
-import com.example.api.repositories.NoteRepository;
-import com.example.api.repositories.ModuleRepository;
-import com.example.api.repositories.MatiereRepository;
+import com.example.api.repositories.*;
 import com.example.api.services.*;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -69,7 +67,8 @@ public class EtudiantController {
 
     @Autowired
     private EnseignantService enseignantService;
-
+    @Autowired
+    private FormationRepository formationRepository;
 
 
     // Constructor injection
@@ -109,6 +108,25 @@ public class EtudiantController {
         }
         return ResponseEntity.ok(result);
     }
+    @GetMapping("/matiers/{etudiantId}")
+    public List<Matiere> getMatieresByEtudiantId(@PathVariable Long etudiantId) {
+        // Récupérer l'étudiant
+        Etudiant etudiant = etudiantRepository.findById(etudiantId)
+                .orElseThrow(() -> new EntityNotFoundException("Étudiant non trouvé avec l'ID : " + etudiantId));
+
+        // Récupérer le niveau d'étude
+        String niveauEtude = etudiant.getNiveau_etude();
+
+        // Récupérer la formation correspondant à ce niveau d'étude
+        Formation formation = formationRepository.findByNom(niveauEtude)
+                .orElseThrow(() -> new EntityNotFoundException("Formation non trouvée pour le niveau : " + niveauEtude));
+
+        // Récupérer les matières de la formation
+        List<Matiere> matieres = matiereRepository.findByFormationId(formation.getId());
+
+        return matieres;
+    }
+
 
     @GetMapping("/matieres/{matiereId}/cours")
     public ResponseEntity<List<Object[]>> getCoursByMatiereId(@PathVariable int matiereId) {

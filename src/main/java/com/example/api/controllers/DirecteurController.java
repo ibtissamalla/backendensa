@@ -2,8 +2,10 @@ package com.example.api.controllers;
 
 
 import com.example.api.models.Etudiant;
+import com.example.api.models.Formation;
 import com.example.api.repositories.EnseignantRepository;
 import com.example.api.repositories.EtudiantRepository;
+import com.example.api.repositories.FormationRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ public class DirecteurController {
     private EtudiantRepository etudiantRepository;
     @Autowired
     private EnseignantRepository enseignantRepository;
+    @Autowired
+    private FormationRepository formationRepository;
 
     @GetMapping("/GetAllEtudiants")
     public List<Etudiant> getAllEtudiants() {
@@ -37,6 +41,12 @@ public class DirecteurController {
         etudiant.setStatut("actif");
         etudiantRepository.save(etudiant);
         return ResponseEntity.ok(Map.of("message", "Etudiant inscrit avec succès"));
+    }
+
+    @GetMapping("/api/formations")
+    public ResponseEntity<List<Formation>> getAllFormations() {
+        List<Formation> formations = formationRepository.findAll();
+        return ResponseEntity.ok(formations);
     }
 
     @PutMapping("/delete/etudiant/{id}")
